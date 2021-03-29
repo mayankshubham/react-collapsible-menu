@@ -1,0 +1,14 @@
+{
+  "title": "Material demo",
+  "devDependencies": {
+    "react-scripts": "latest"
+  },
+  "description": "https://github.com/mui-org/material-ui/blob/master/docs/src/pages/components/buttons/IconLabelButtons.js",
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "classnames": "2.2.6",
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}
