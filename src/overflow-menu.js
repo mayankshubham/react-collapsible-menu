@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function OverflowMenu({ children, className, visibleItemIds }) {
+export default function OverflowMenu({ children, className, visibilityMap }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
@@ -25,8 +25,8 @@ export default function OverflowMenu({ children, className, visibleItemIds }) {
   };
 
   const shouldShowMenu = useMemo(
-    () => Object.values(visibleItemIds).some((v) => v === false),
-    [visibleItemIds]
+    () => Object.values(visibilityMap).some((v) => v === false),
+    [visibilityMap]
   );
   if (!shouldShowMenu) {
     return null;
@@ -49,7 +49,7 @@ export default function OverflowMenu({ children, className, visibleItemIds }) {
         onClose={handleClose}
       >
         {React.Children.map(children, (child) => {
-          if (!visibleItemIds[child.props["data-observerid"]]) {
+          if (!visibilityMap[child.props["data-observerid"]]) {
             return (
               <MenuItem key={child} onClick={handleClose}>
                 {React.cloneElement(child, {

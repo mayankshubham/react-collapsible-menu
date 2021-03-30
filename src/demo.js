@@ -9,7 +9,7 @@ import ArchiveIcon from "@material-ui/icons/Archive";
 import StarIcon from "@material-ui/icons/Star";
 import SaveIcon from "@material-ui/icons/Save";
 import DownloadIcon from "@material-ui/icons/ArrowDownward";
-import IntersectionObserverWrap from "./intersection-observer-wrapper";
+import IntersectionObserverWrapper from "./intersection-observer-wrapper";
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -21,31 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function IconLabelButtons() {
   const classes = useStyles();
   return (
-    <IntersectionObserverWrap>
-      <Button
-        color="primary"
-        data-observerid="delete"
-        className={classes.button}
-        startIcon={<DeleteIcon />}
-      >
-        Delete
-      </Button>
-      <Button
-        color="primary"
-        data-observerid="send"
-        className={classes.button}
-        startIcon={<Icon>send</Icon>}
-      >
-        Send
-      </Button>
-      <Button
-        color="primary"
-        data-observerid="upload"
-        className={classes.button}
-        startIcon={<CloudUploadIcon />}
-      >
-        Upload
-      </Button>
+    <IntersectionObserverWrapper>
       <Button
         color="primary"
         data-observerid="talk"
@@ -64,11 +40,27 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="mark-as-read"
+        data-observerid="upload"
         className={classes.button}
-        startIcon={<SaveIcon />}
+        startIcon={<CloudUploadIcon />}
       >
-        Mark as Read
+        Upload
+      </Button>
+      <Button
+        color="primary"
+        data-observerid="download"
+        className={classes.button}
+        startIcon={<DownloadIcon />}
+      >
+        Download
+      </Button>
+      <Button
+        color="primary"
+        data-observerid="send"
+        className={classes.button}
+        startIcon={<Icon>send</Icon>}
+      >
+        Send
       </Button>
       <Button
         color="primary"
@@ -80,6 +72,14 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
+        data-observerid="mark-as-read"
+        className={classes.button}
+        startIcon={<SaveIcon />}
+      >
+        Mark as Read
+      </Button>
+      <Button
+        color="primary"
         data-observerid="archive"
         className={classes.button}
         startIcon={<ArchiveIcon />}
@@ -88,12 +88,12 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="download"
+        data-observerid="delete"
         className={classes.button}
-        startIcon={<DownloadIcon />}
+        startIcon={<DeleteIcon />}
       >
-        Download
+        Delete
       </Button>
-    </IntersectionObserverWrap>
+    </IntersectionObserverWrapper>
   );
 }

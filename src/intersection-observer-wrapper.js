@@ -10,7 +10,8 @@ const useIntersectionStyles = makeStyles(() => ({
   },
   inVisible: {
     order: 100,
-    opacity: 0
+    opacity: 0,
+    pointerEvents: "none"
   },
   toolbarWrapper: {
     display: "flex",
@@ -28,48 +29,50 @@ const useIntersectionStyles = makeStyles(() => ({
 export default function IntersectionObserverWrap({ children }) {
   const classes = useIntersectionStyles();
   const navRef = useRef(null);
-  const [visibleItemIds, setVisibleItemIds] = useState({});
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const updatedEntries = {};
-        entries.forEach((entry) => {
-          const observerid = entry.target.dataset.observerid;
-          if (entry.isIntersecting) {
-            updatedEntries[observerid] = true;
-          } else {
-            updatedEntries[observerid] = false;
-          }
-        });
-        setVisibleItemIds((prev) => ({
-          ...prev,
-          ...updatedEntries
-        }));
-      },
-      {
-        root: navRef.current,
-        threshold: 1
+  const [visibilityMap, setVisibilityMap] = useState({});
+  const handleIntersection = (entries) => {
+    const updatedEntries = {};
+    entries.forEach((entry) => {
+      const observerid = entry.target.dataset.observerid;
+      if (entry.isIntersecting) {
+        updatedEntries[observerid] = true;
+      } else {
+        updatedEntries[observerid] = false;
       }
-    );
+    });
+    setVisibilityMap((prev) => ({
+      ...prev,
+      ...updatedEntries
+    }));
+  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      root: navRef.current,
+      threshold: 1
+    });
 
+    // We are addting observers to child elements of the container div
+    // with ref as navRef. Notice that we are adding observers
+    // only if we have the data attribute observerid on the child elemeent
     Array.from(navRef.current.children).forEach((item) => {
       if (item.dataset.observerid) {
         observer.observe(item);
       }
     });
+    return () => observer.disconnect();
   }, []);
   return (
     <div className={classes.toolbarWrapper} ref={navRef}>
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           className: classnames(child.props.className, {
-            [classes.visible]: !!visibleItemIds[child.props["data-observerid"]],
-            [classes.inVisible]: !visibleItemIds[child.props["data-observerid"]]
+            [classes.visible]: !!visibilityMap[child.props["data-observerid"]],
+            [classes.inVisible]: !visibilityMap[child.props["data-observerid"]]
           })
         });
       })}
       <OverflowMenu
-        visibleItemIds={visibleItemIds}
+        visibilityMap={visibilityMap}
         className={classes.overflowStyle}
       >
         {children}
