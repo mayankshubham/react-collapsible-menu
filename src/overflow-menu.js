@@ -49,7 +49,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         onClose={handleClose}
       >
         {React.Children.map(children, (child) => {
-          if (!visibilityMap[child.props["data-observerid"]]) {
+          if (!visibilityMap[child.props["data-targetid"]]) {
             return (
               <MenuItem key={child} onClick={handleClose}>
                 {React.cloneElement(child, {
