@@ -24,7 +24,7 @@ export default function IconLabelButtons() {
     <IntersectionObserverWrapper>
       <Button
         color="primary"
-        data-observerid="talk"
+        data-targetid="talk"
         className={classes.button}
         startIcon={<KeyboardVoiceIcon />}
       >
@@ -32,7 +32,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="save"
+        data-targetid="save"
         className={classes.button}
         startIcon={<SaveIcon />}
       >
@@ -40,7 +40,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="upload"
+        data-targetid="upload"
         className={classes.button}
         startIcon={<CloudUploadIcon />}
       >
@@ -48,7 +48,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="download"
+        data-targetid="download"
         className={classes.button}
         startIcon={<DownloadIcon />}
       >
@@ -56,7 +56,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="send"
+        data-targetid="send"
         className={classes.button}
         startIcon={<Icon>send</Icon>}
       >
@@ -64,7 +64,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="star"
+        data-targetid="star"
         className={classes.button}
         startIcon={<StarIcon />}
       >
@@ -72,7 +72,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="mark-as-read"
+        data-targetid="mark-as-read"
         className={classes.button}
         startIcon={<SaveIcon />}
       >
@@ -80,7 +80,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="archive"
+        data-targetid="archive"
         className={classes.button}
         startIcon={<ArchiveIcon />}
       >
@@ -88,7 +88,7 @@ export default function IconLabelButtons() {
       </Button>
       <Button
         color="primary"
-        data-observerid="delete"
+        data-targetid="delete"
         className={classes.button}
         startIcon={<DeleteIcon />}
       >

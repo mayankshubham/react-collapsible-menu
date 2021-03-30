@@ -6,17 +6,19 @@ import OverflowMenu from "./overflow-menu";
 const useIntersectionStyles = makeStyles(() => ({
   visible: {
     order: 0,
+    visibility: "visible",
     opacity: 1
   },
   inVisible: {
     order: 100,
-    opacity: 0,
+    visibility: "hidden",
     pointerEvents: "none"
   },
   toolbarWrapper: {
     display: "flex",
     overflow: "hidden",
-    padding: "0 20px"
+    padding: "0 20px",
+    width: "75%"
   },
   overflowStyle: {
     order: 99,
@@ -33,13 +35,15 @@ export default function IntersectionObserverWrap({ children }) {
   const handleIntersection = (entries) => {
     const updatedEntries = {};
     entries.forEach((entry) => {
-      const observerid = entry.target.dataset.observerid;
+      const targetid = entry.target.dataset.targetid;
+      console.log(entry, targetid);
       if (entry.isIntersecting) {
-        updatedEntries[observerid] = true;
+        updatedEntries[targetid] = true;
       } else {
-        updatedEntries[observerid] = false;
+        updatedEntries[targetid] = false;
       }
     });
+
     setVisibilityMap((prev) => ({
       ...prev,
       ...updatedEntries
@@ -55,7 +59,7 @@ export default function IntersectionObserverWrap({ children }) {
     // with ref as navRef. Notice that we are adding observers
     // only if we have the data attribute observerid on the child elemeent
     Array.from(navRef.current.children).forEach((item) => {
-      if (item.dataset.observerid) {
+      if (item.dataset.targetid) {
         observer.observe(item);
       }
     });
@@ -66,8 +70,8 @@ export default function IntersectionObserverWrap({ children }) {
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           className: classnames(child.props.className, {
-            [classes.visible]: !!visibilityMap[child.props["data-observerid"]],
-            [classes.inVisible]: !visibilityMap[child.props["data-observerid"]]
+            [classes.visible]: !!visibilityMap[child.props["data-targetid"]],
+            [classes.inVisible]: !visibilityMap[child.props["data-targetid"]]
           })
         });
       })}
